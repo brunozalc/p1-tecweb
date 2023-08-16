@@ -30,7 +30,7 @@ while True:
     elif route == '':
         response = index(request)
     else:
-        response = build_response()
+        response = build_response(code=404, reason='Not Found')
 
     client_connection.sendall(response)
 
