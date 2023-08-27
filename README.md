@@ -1,3 +1,5 @@
-# h1-tecweb
+# p1-tecweb
 
-Handout 1 da disciplina Tecnologias Web, do quarto semestre de Engenharia da Computação
+Projeto 1 da disciplina Tecnologias Web, do quarto semestre de Engenharia da Computação.
+
+Inclui os handouts 1 e 2.  
