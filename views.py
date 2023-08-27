@@ -1,7 +1,5 @@
-from utils import load_data, load_template, build_response, add_to_json
+from utils import load_data, load_template, build_response, add_to_database
 from urllib.parse import unquote_plus
-import json
-
 
 def index(request):
     # A string de request sempre começa com o tipo da requisição (ex: GET, POST)
@@ -20,7 +18,7 @@ def index(request):
             chave, valor = chave_valor.split('=')
             params[chave] = unquote_plus(valor)
 
-        add_to_json(params)
+        add_to_database(params)
         return build_response(code=303, reason='See Other', headers='Location: /')
 
     note_template = load_template('components/note.html')
