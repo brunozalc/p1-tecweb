@@ -1,4 +1,4 @@
-from database import Database
+from database import Database, Note
 from utils import load_data, load_template, build_response, add_to_database
 from urllib.parse import unquote_plus
 
@@ -54,7 +54,25 @@ def edit(request):
     note = database.get_by_id(note_id)
 
     if note:
-        edit_template = load_template('edit.html')
-        return build_response() + edit_template.format(id=note.id, title=note.title, content=note.content).encode()
+        if request.startswith('GET'):
+            edit_template = load_template('edit.html')
+            return build_response() + edit_template.format(id=note.id, title=note.title, content=note.content).encode()
+
+        elif request.startswith('POST'):
+            request = request.replace('\r', '')
+            partes = request.split('\n\n')
+            corpo = partes[1]
+            params = {}
+            for chave_valor in corpo.split('&'):
+                chave, valor = chave_valor.split('=')
+                params[chave] = unquote_plus(valor)
+
+            note.title = params['titulo']
+            note.content = params['detalhes']
+
+            database.update(note)
+
+            return build_response(code=303, reason='See Other', headers='Location: /')
     else:
         return build_response(code=404, reason='Not Found')
+
