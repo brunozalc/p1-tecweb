@@ -1,8 +1,16 @@
 <div class="card">
-  <h3 class="card-title">{title}</h3>
+  <div class="card-header">
+    <h3 class="card-title">{title}</h3>
+    <div class="button-container">
+      <a href="/edit/{id}" class="edit-button">
+        <span class="material-symbols-outlined"> edit </span>
+      </a>
+      <a href="/delete/{id}" class="delete-button">
+        <span class="material-symbols-outlined"> delete </span>
+      </a>
+    </div>
+  </div>
   <div class="card-content">
-    <p>
-      {content}
-    </p>
+    <p>{content}</p>
   </div>
 </div>

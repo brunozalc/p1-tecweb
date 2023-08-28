@@ -136,7 +136,7 @@ main {
   font-weight: 600;
   color: #2c2c2c;
   border: transparent;
-  outline: none
+  outline: none;
 }
 
 .autoresize {
@@ -166,14 +166,20 @@ main {
 
 .card {
   margin: 1%;
-  padding: 1%;
+  padding: 3%;
 
-  height: 100px;
+  height: auto;
   width: 200px;
+
+  min-height: 100px;
+  min-width: 200px;
+  max-width: 200px;
 
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+
+  position: relative;
 
   border-radius: 5%;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
@@ -181,10 +187,36 @@ main {
   font-family: "Permanent Marker", cursive;
 }
 
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .card-title {
   font-weight: 800;
   font-size: large;
   align-self: flex-start;
+  justify-content: flex-start;
+}
+
+.delete-button,
+.edit-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4c4c4c;
+}
+
+.delete-button .material-symbols-outlined,
+.edit-button .material-symbols-outlined {
+  font-size: 1.2em;
 }
 
 .card-content {
