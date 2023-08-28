@@ -1,6 +1,15 @@
-from utils import load_data, load_template, build_response, add_to_json
+from database import Database
+from utils import load_data, load_template, build_response, add_to_database
 from urllib.parse import unquote_plus
-import json
+
+database = Database('notes')
+
+
+def extract_note_id(request):
+    parts = request.split(' ')
+    url = parts[1]
+    note_id = url.split('/')[-1]
+    return note_id
 
 
 def index(request):
@@ -20,14 +29,32 @@ def index(request):
             chave, valor = chave_valor.split('=')
             params[chave] = unquote_plus(valor)
 
-        add_to_json(params)
+        add_to_database(params)
         return build_response(code=303, reason='See Other', headers='Location: /')
 
     note_template = load_template('components/note.html')
     notes_li = [
-        note_template.format(title=dados['titulo'], details=dados['detalhes'])
-        for dados in load_data('notes.json')
+        note_template.format(
+            id=dados.id, title=dados.title, content=dados.content)
+        for dados in load_data()
     ]
     notes = '\n'.join(notes_li)
 
     return build_response() + load_template('index.html').format(notes=notes).encode()
+
+
+def delete(request):
+    note_id = extract_note_id(request)
+    database.delete(note_id)
+    return build_response(code=303, reason='See Other', headers='Location: /')
+
+
+def edit(request):
+    note_id = extract_note_id(request)
+    note = database.get_by_id(note_id)
+
+    if note:
+        edit_template = load_template('edit.html')
+        return build_response() + edit_template.format(id=note.id, title=note.title, content=note.content).encode()
+    else:
+        return build_response(code=404, reason='Not Found')

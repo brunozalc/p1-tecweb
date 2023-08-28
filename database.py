@@ -25,6 +25,11 @@ class Database:
         rows = self.cur.fetchall()
         return [Note(row[0], row[1], row[2]) for row in rows]
     
+    def get_by_id(self, note_id):
+        self.cur.execute("SELECT id, title, content FROM note WHERE id = ?", (note_id,))
+        row = self.cur.fetchone()
+        return Note(row[0], row[1], row[2]) if row else None
+    
     def update(self, note):
         self.cur.execute("UPDATE note SET title = ?, content = ? WHERE id = ?", (note.title, note.content, note.id))
         self.conn.commit()
