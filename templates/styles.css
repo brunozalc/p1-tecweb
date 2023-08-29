@@ -239,6 +239,25 @@ main {
   font-size: normal;
 }
 
+.update-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin: 2% 5% 0 5%;
+
+  width: 30%;
+  height: 5%;
+  padding: 1% 0.7% 0.7%;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+
+  display: none;
+}
+
 .card-color-1 {
   background-color: #ead3a7;
 }
