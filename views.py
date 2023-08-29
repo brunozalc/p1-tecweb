@@ -1,6 +1,5 @@
 from database import Database, Note
-from utils import load_data, load_template, build_response, add_to_database, extract_id_from_url
-from urllib.parse import unquote_plus
+from utils import load_data, load_template, build_response, add_to_database, extract_id_from_url, process_post_request
 
 database = Database('notes')
 
@@ -8,20 +7,7 @@ database = Database('notes')
 def index(request):
     # A string de request sempre começa com o tipo da requisição (ex: GET, POST)
     if request.startswith('POST'):
-        request = request.replace('\r', '')  # Remove caracteres indesejados
-        # Cabeçalho e corpo estão sempre separados por duas quebras de linha
-        partes = request.split('\n\n')
-        corpo = partes[1]
-        params = {}
-        # Preencha o dicionário params com as informações do corpo da requisição
-        # O dicionário conterá dois valores, o título e a descrição.
-        # Posteriormente pode ser interessante criar uma função que recebe a
-        # requisição e devolve os parâmetros para desacoplar esta lógica.
-        # Dica: use o método split da string e a função unquote_plus
-        for chave_valor in corpo.split('&'):
-            chave, valor = chave_valor.split('=')
-            params[chave] = unquote_plus(valor)
-
+        params = process_post_request(request)
         add_to_database(params)
         return build_response(code=303, reason='See Other', headers='Location: /')
 
@@ -56,13 +42,7 @@ def edit(request):
 
 def update(request):
     if request.startswith('POST'):
-        request = request.replace('\r', '')
-        partes = request.split('\n\n')
-        corpo = partes[1]
-        params = {}
-        for chave_valor in corpo.split('&'):
-            chave, valor = chave_valor.split('=')
-            params[chave] = unquote_plus(valor)
+        params = process_post_request(request)
 
         note = database.get_by_id(params['id'])
         note.title = params['titulo']

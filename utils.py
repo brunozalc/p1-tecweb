@@ -1,4 +1,5 @@
 import json
+from urllib.parse import unquote_plus
 from database import Database, Note
 
 db = Database('notes')
@@ -48,6 +49,19 @@ def extract_id_from_url(request):
     url = parts[1]
     note_id = url.split('/')[-1]
     return note_id
+
+# processa uma requisição POST e extrai os parâmetros
+
+
+def process_post_request(request):
+    request = request.replace('\r', '')
+    partes = request.split('\n\n')
+    corpo = partes[1]
+    params = {}
+    for chave_valor in corpo.split('&'):
+        chave, valor = chave_valor.split('=')
+        params[chave] = unquote_plus(valor)
+    return params
 
 
 # constrói uma resposta http com o código, razão e cabeçalhos especificados
