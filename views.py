@@ -1,15 +1,8 @@
 from database import Database, Note
-from utils import load_data, load_template, build_response, add_to_database
+from utils import load_data, load_template, build_response, add_to_database, extract_id_from_url
 from urllib.parse import unquote_plus
 
 database = Database('notes')
-
-
-def extract_note_id(request):
-    parts = request.split(' ')
-    url = parts[1]
-    note_id = url.split('/')[-1]
-    return note_id
 
 
 def index(request):
@@ -44,35 +37,38 @@ def index(request):
 
 
 def delete(request):
-    note_id = extract_note_id(request)
+    note_id = extract_id_from_url(request)
     database.delete(note_id)
     return build_response(code=303, reason='See Other', headers='Location: /')
 
 
 def edit(request):
-    note_id = extract_note_id(request)
+    note_id = extract_id_from_url(request)
     note = database.get_by_id(note_id)
 
-    if note:
-        if request.startswith('GET'):
-            edit_template = load_template('edit.html')
-            return build_response() + edit_template.format(id=note.id, title=note.title, content=note.content).encode()
-
-        elif request.startswith('POST'):
-            request = request.replace('\r', '')
-            partes = request.split('\n\n')
-            corpo = partes[1]
-            params = {}
-            for chave_valor in corpo.split('&'):
-                chave, valor = chave_valor.split('=')
-                params[chave] = unquote_plus(valor)
-
-            note.title = params['titulo']
-            note.content = params['detalhes']
-
-            database.update(note)
-
-            return build_response(code=303, reason='See Other', headers='Location: /')
+    if request.startswith('GET'):
+        edit_template = load_template('edit.html')
+        print("fornecendo o template de edição")
+        return build_response() + edit_template.format(id=note.id, title=note.title, content=note.content).encode()
     else:
         return build_response(code=404, reason='Not Found')
 
+
+def update(request):
+    if request.startswith('POST'):
+        request = request.replace('\r', '')
+        partes = request.split('\n\n')
+        corpo = partes[1]
+        params = {}
+        for chave_valor in corpo.split('&'):
+            chave, valor = chave_valor.split('=')
+            params[chave] = unquote_plus(valor)
+
+        note = database.get_by_id(params['id'])
+        note.title = params['titulo']
+        note.content = params['detalhes']
+
+        database.update(note)
+        return build_response(code=303, reason='See Other', headers='Location: /')
+    else:
+        return build_response(code=404, reason='Not Found')
