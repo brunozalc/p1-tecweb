@@ -2,7 +2,7 @@ import socket
 from pathlib import Path
 from database import Database
 from utils import extract_route, read_file, build_response
-from views import index, delete, edit
+from views import index, delete, edit, update
 
 CUR_DIR = Path(__file__).parent
 SERVER_HOST = '0.0.0.0'
@@ -34,6 +34,8 @@ while True:
         response = delete(request)
     elif route.startswith('edit'):
         response = edit(request)
+    elif route.startswith('update'):
+        response = update(request)
     else:
         response = build_response(code=404, reason='Not Found')
 

@@ -33,6 +33,7 @@ class Database:
     def update(self, note):
         self.cur.execute("UPDATE note SET title = ?, content = ? WHERE id = ?", (note.title, note.content, note.id))
         self.conn.commit()
+        
 
     def delete(self, note_id):
         self.cur.execute("DELETE FROM note WHERE id = ?", (note_id,))

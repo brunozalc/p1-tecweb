@@ -162,10 +162,11 @@ main {
   justify-content: space-around;
 
   margin: 2% 2%;
+  pointer-events: none;
 }
 
 .card {
-  margin: 1%;
+  margin: 3% 2%;
   padding: 3%;
 
   height: auto;
@@ -185,6 +186,19 @@ main {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 
   font-family: "Permanent Marker", cursive;
+
+  pointer-events: auto;
+  transition: all 150ms ease-in-out;
+}
+
+.card-container:hover > .card:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.card-container:hover > .card:not(:hover) {
+  opacity: 0.5;
 }
 
 .card-header {

@@ -1,4 +1,5 @@
 import json
+from urllib.parse import unquote_plus
 from database import Database, Note
 
 db = Database('notes')
@@ -19,7 +20,7 @@ def read_file(filename):
     with open(filename, 'rb') as f:
         return f.read()
 
-# carrega um arquivo json da pasta data
+# carrega os dados do database
 
 
 def load_data(filename=None):
@@ -33,12 +34,34 @@ def load_template(filename):
     with open("templates/" + filename) as f:
         return f.read()
 
-# adiciona um item ao arquivo json de notas
+# adiciona um item ao database
 
 
 def add_to_database(params):
     note = Note(title=params['titulo'], content=params['detalhes'])
     db.add(note)
+
+# extrai o id de uma nota da request
+
+
+def extract_id_from_url(request):
+    parts = request.split(' ')
+    url = parts[1]
+    note_id = url.split('/')[-1]
+    return note_id
+
+# processa uma requisição POST e extrai os parâmetros
+
+
+def process_post_request(request):
+    request = request.replace('\r', '')
+    partes = request.split('\n\n')
+    corpo = partes[1]
+    params = {}
+    for chave_valor in corpo.split('&'):
+        chave, valor = chave_valor.split('=')
+        params[chave] = unquote_plus(valor)
+    return params
 
 
 # constrói uma resposta http com o código, razão e cabeçalhos especificados
