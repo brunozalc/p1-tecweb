@@ -3,6 +3,8 @@ from utils import load_data, load_template, build_response, add_to_database, ext
 
 database = Database('notes')
 
+def error_404():
+    return build_response(code=404, reason='Not Found') + load_template('404.html').encode()
 
 def index(request):
     # A string de request sempre começa com o tipo da requisição (ex: GET, POST)
@@ -37,7 +39,7 @@ def edit(request):
         print("fornecendo o template de edição")
         return build_response() + edit_template.format(id=note.id, title=note.title, content=note.content).encode()
     else:
-        return build_response(code=404, reason='Not Found')
+        return error_404()
 
 
 def update(request):
@@ -51,4 +53,4 @@ def update(request):
         database.update(note)
         return build_response(code=303, reason='See Other', headers='Location: /')
     else:
-        return build_response(code=404, reason='Not Found')
+        return error_404()

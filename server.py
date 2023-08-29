@@ -2,7 +2,7 @@ import socket
 from pathlib import Path
 from database import Database
 from utils import extract_route, read_file, build_response
-from views import index, delete, edit, update
+from views import index, delete, edit, update, error_404
 
 CUR_DIR = Path(__file__).parent
 SERVER_HOST = '0.0.0.0'
@@ -37,7 +37,7 @@ while True:
     elif route.startswith('update'):
         response = update(request)
     else:
-        response = build_response(code=404, reason='Not Found')
+        response = error_404()
 
     client_connection.sendall(response)
 
