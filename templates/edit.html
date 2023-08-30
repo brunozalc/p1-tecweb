@@ -1,7 +1,35 @@
-<form action="/update" method="POST">
-  <input type="hidden" name="id" value="{id}" />
-  <input type="text" name="titulo" value="{title}" />
-  <textarea name="detalhes">{content}</textarea>
-  <button type="submit">Salvar</button>
-  <a href="/">Cancelar</a>
-</form>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Get-it</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+      integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../templates/styles.css" />
+  </head>
+
+  <body>
+    <div class="modal-window" id="modal-window">
+      <div>
+        <a href="/" class="modal-close">Cancelar</a>
+        <form class="form-card" method="post" action="/update">
+          <input
+            class="form-card-title"
+            type="text"
+            name="titulo"
+            value="{title}"
+            placeholder="Título"
+          />
+          <textarea class="autoresize" name="detalhes">{content}</textarea>
+          <input type="hidden" name="id" value="{id}" />
+          <button class="btn" type="submit">Salvar</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

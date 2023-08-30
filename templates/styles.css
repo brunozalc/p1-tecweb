@@ -239,6 +239,58 @@ main {
   font-size: normal;
 }
 
+.modal-window {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.25);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-window > div {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: white;
+  border-radius: 1rem;
+}
+
+.modal-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+}
+
+.modal-close:hover {
+  color: black;
+}
+
+.modal-window .form-card {
+  width: 100%;
+}
+
+.modal-window .form-card-title {
+  width: 100%;
+}
+
+.modal-window .autoresize {
+  width: 100%;
+}
+
 .card-color-1 {
   background-color: #ead3a7;
 }
@@ -301,4 +353,33 @@ main {
 
 .card-rotation-11 {
   transform: rotate(9deg);
+}
+
+/* estilos da página 404 */
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
+
+.error-container h1 {
+  font-size: 10em;
+  font-weight: 800;
+  color: black;
+}
+
+.error-container p {
+  font-size: 2em;
+  font-weight: 600;
+  color: #2c2c2c;
+}
+
+.error-container .btn {
+  margin-top: 5%;
+  width: 20%;
+  font-size: 1.5em;
+  font-weight: 600;
 }
