@@ -239,23 +239,56 @@ main {
   font-size: normal;
 }
 
-.update-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.modal-window {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.25);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
 
-  margin: 2% 5% 0 5%;
+.modal-window > div {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: white;
+  border-radius: 1rem;
+}
 
-  width: 30%;
-  height: 5%;
-  padding: 1% 0.7% 0.7%;
+.modal-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+}
 
-  border-width: 0;
-  outline: none;
-  border-radius: 2%;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+.modal-close:hover {
+  color: black;
+}
 
-  display: none;
+.modal-window .form-card {
+  width: 100%;
+}
+
+.modal-window .form-card-title {
+  width: 100%;
+}
+
+.modal-window .autoresize {
+  width: 100%;
 }
 
 .card-color-1 {
@@ -321,7 +354,6 @@ main {
 .card-rotation-11 {
   transform: rotate(9deg);
 }
-
 
 /* estilos da página 404 */
 
