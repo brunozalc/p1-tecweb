@@ -60,7 +60,7 @@
 
     ```python
     def error_404():
-    return build_response(code=404, reason='Not Found') + load_template('404.html').encode()
+        return build_response(code=404, reason='Not Found') + load_template('404.html').encode()
     ```
 
 3. **atualizar `server.py`**
@@ -163,7 +163,6 @@
     ```python
     from django.contrib import admin
     from .models import Note
-
 
     admin.site.register(Note)
     ```
