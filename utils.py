@@ -31,7 +31,7 @@ def load_data(filename=None):
 
 
 def load_template(filename):
-    with open("templates/" + filename) as f:
+    with open("templates/" + filename, encoding="utf-8") as f:
         return f.read()
 
 # adiciona um item ao database
