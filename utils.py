@@ -2,7 +2,7 @@ import json
 from urllib.parse import unquote_plus
 from database import Database, Note
 
-db = Database('notes')
+db = Database('C:/Users/brun0/Desktop/main/4sem/tecweb/avaliação intermediária/q1/notes')
 
 
 # extrai o caminho da request
@@ -29,9 +29,9 @@ def load_data(filename=None):
 
 # carrega um template da pasta de templates
 
-
+# C:\Users\brun0\Desktop\main\4sem\tecweb\avaliação intermediária\q1\templates\components\note.html
 def load_template(filename):
-    with open("templates/" + filename) as f:
+    with open("C:/Users/brun0/Desktop/main/4sem/tecweb/avaliação intermediária/q1/templates/" + filename, encoding="utf-8") as f:
         return f.read()
 
 # adiciona um item ao database
