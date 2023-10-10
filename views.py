@@ -54,7 +54,3 @@ def update(request):
         return build_response(code=303, reason='See Other', headers='Location: /')
     else:
         return error_404()
-
-def prova(request):
-    total_notes = len(load_data())
-    return build_response() + load_template('prova.html').format(total_notes=total_notes).encode()
