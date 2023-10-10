@@ -1,4 +1,4 @@
-# Cheat Sheet para Avaliação Intermediária
+# avaliação intermediária
 
 ## índice
 
